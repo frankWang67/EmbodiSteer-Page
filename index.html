@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EmbodiSteer</title>
+    <meta
+      name="description"
+      content="EmbodiSteer: Steering Embodiment-Agnostic Visuomotor Policies with Joint-Space Guidance for Zero-Shot Cross-Embodiment Deployment."
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a href="#" class="brand">EmbodiSteer</a>
+        <div class="nav-links">
+          <a href="#abstract">Abstract</a>
+          <a href="#real-world">Real World</a>
+          <a href="#simulation">Simulation</a>
+          <a href="#method">Method</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>EmbodiSteer</h1>
+        <p class="subtitle">
+          Steering Embodiment-Agnostic Visuomotor Policies with Joint-Space
+          Guidance for Zero-Shot Cross-Embodiment Deployment
+        </p>
+        <p class="authors">
+          Shihefeng Wang<sup>*</sup>, Kangchen Lv<sup>*</sup>, Mingrui Yu,
+          Xiang Li<sup>&dagger;</sup>
+        </p>
+        <p class="affiliations">
+          Department of Automation, Tsinghua University &nbsp;|&nbsp;
+          Beijing Key Laboratory of Embodied Intelligence Systems &nbsp;|&nbsp;
+          Institute for Embodied Intelligence and Robotics, Tsinghua University
+        </p>
+        <p class="notes"><sup>*</sup>Equal contribution. <sup>&dagger;</sup>Corresponding author.</p>
+        <div class="actions">
+          <a class="button primary" href="assets/paper/embodisteer.pdf">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
+            Paper
+          </a>
+          <a class="button" href="#" aria-label="arXiv link">
+            <img class="button-img" src="assets/images/arxiv_icon.png" alt="" />
+            arXiv
+          </a>
+          <a class="button" href="#bibtex">
+            <svg class="quote-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M9 7c-2.4 1.6-3.6 3.5-3.6 5.8 0 2.4 1.4 4.2 3.5 4.2 1.8 0 3.1-1.3 3.1-3 0-1.8-1.2-3-3-3-.4 0-.8.1-1.1.2.3-1.1 1.1-2.1 2.5-3.1L9 7Z"/>
+              <path d="M17 7c-2.4 1.6-3.6 3.5-3.6 5.8 0 2.4 1.4 4.2 3.5 4.2 1.8 0 3.1-1.3 3.1-3 0-1.8-1.2-3-3-3-.4 0-.8.1-1.1.2.3-1.1 1.1-2.1 2.5-3.1L17 7Z"/>
+            </svg>
+            BibTeX
+          </a>
+          <span class="button disabled" aria-disabled="true">
+            <svg class="logo-fill" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            Code Coming Soon
+          </span>
+        </div>
+      </section>
+
+      <section class="section video-first" aria-label="Overview video">
+        <div class="section-heading compact section-label-row">
+          <p class="eyebrow">Overview Video</p>
+          <p class="sound-note">Sound on</p>
+        </div>
+        <div class="video-frame hero-video">
+          <video
+            src="assets/videos/overview/corl26_final_video.mp4"
+            controls
+            playsinline
+            preload="metadata"
+          ></video>
+        </div>
+      </section>
+
+      <section class="section" id="abstract" aria-label="Abstract">
+        <div class="section-heading compact">
+          <p class="eyebrow">Abstract</p>
+        </div>
+        <p class="abstract-text">
+          Scalable robot imitation learning relies on large-scale heterogeneous data from diverse robots or body-free data, making Cartesian end-effector actions a key interface for embodiment-agnostic policy learning. However, end-effector-only abstraction leaves Cartesian policies unaware of the deployed robot body, making them brittle under robot-specific constraints such as whole-body collision avoidance. To overcome this limitation, we present <strong>EmbodiSteer</strong>, a training-free framework that steers embodiment-agnostic visuomotor policies toward zero-shot, embodiment-aware deployment. EmbodiSteer keeps policy learning in Cartesian space while efficiently lifting inference-time diffusion sampling into the target robot's joint space via forward kinematics and Jacobian-based updates. With whole-body collision-aware guidance over joint trajectories after each denoising step, the arm can be steered away from collisions while preserving learned end-effector behavior. Compared with Cartesian-only execution, EmbodiSteer reduces collision rate by 46.1% and improves task success rate by 28.5% across 9 simulated robots, and further achieves 90.0% collision rate reduction and 36.7% success rate increase on two physical robots in highly constrained scenarios.
+        </p>
+        <div class="metric-row">
+          <div class="metric">
+            <span class="metric-value">+28.5%</span>
+            <span class="metric-label">simulation success rate</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">-46.1%</span>
+            <span class="metric-label">simulation collision rate</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">+36.7%</span>
+            <span class="metric-label">real-world success rate</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">-90.0%</span>
+            <span class="metric-label">real-world collision rate</span>
+          </div>
+        </div>
+        <figure class="figure-block abstract-teaser">
+          <img src="assets/images/teaser.png" alt="EmbodiSteer teaser showing cross-embodiment deployment with obstacle-aware guidance" />
+        </figure>
+      </section>
+
+      <section class="section" id="real-world">
+        <div class="section-heading">
+          <p class="eyebrow">Real-World Results</p>
+          <h2>Same UMI-trained checkpoint, two robot embodiments</h2>
+          <p>
+            Select a task to compare Base Cartesian Policy and EmbodiSteer
+            rollouts on UR5 and Franka Panda. Each task shares one checkpoint
+            across the two robots.
+          </p>
+          <p class="speed-note">All rollouts are shown at 2x speed.</p>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Real-world task selector">
+          <button class="tab active" data-task="coffee" type="button">Make Iced Coffee</button>
+          <button class="tab" data-task="flower" type="button">Put Flower in Vase</button>
+          <button class="tab" data-task="banana" type="button">Arrange Banana</button>
+        </div>
+        <div class="layout-row">
+          <span class="layout-label">Obstacle layout</span>
+          <div class="layout-tabs" role="tablist" aria-label="Obstacle layout selector"></div>
+        </div>
+
+        <div class="rollout-grid">
+          <article class="video-card">
+            <div class="card-title">
+              <span>UR5</span>
+              <strong>Base Cartesian Policy</strong>
+            </div>
+            <video id="ur5-base" controls muted playsinline preload="metadata"></video>
+          </article>
+          <article class="video-card">
+            <div class="card-title">
+              <span>UR5</span>
+              <strong>EmbodiSteer</strong>
+            </div>
+            <video id="ur5-embodisteer" controls muted playsinline preload="metadata"></video>
+          </article>
+          <article class="video-card">
+            <div class="card-title">
+              <span>Franka Panda</span>
+              <strong>Base Cartesian Policy</strong>
+            </div>
+            <video id="franka-base" controls muted playsinline preload="metadata"></video>
+          </article>
+          <article class="video-card">
+            <div class="card-title">
+              <span>Franka Panda</span>
+              <strong>EmbodiSteer</strong>
+            </div>
+            <video id="franka-embodisteer" controls muted playsinline preload="metadata"></video>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="simulation">
+        <div class="section-heading">
+          <p class="eyebrow">Simulation Results</p>
+          <h2>Evaluation across 9 robot embodiments</h2>
+        </div>
+
+        <figure class="figure-block">
+          <img src="assets/images/figure3_simulation_setup.png" alt="Simulation tasks and robot embodiments" />
+          <figcaption>
+            Figure 3. Simulation benchmark covering three manipulation tasks and
+            diverse robot embodiments.
+          </figcaption>
+        </figure>
+
+        <div class="table-card">
+          <div class="table-title">Table 1. Quantitative results with obstacles</div>
+          <p class="table-note">
+            TSR denotes task success rate, and COR denotes collision rate.
+          </p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Obstacles</th>
+                  <th rowspan="2">Method</th>
+                  <th colspan="3">PlaceToast</th>
+                  <th colspan="3">TurnOnFaucet</th>
+                  <th colspan="3">MakeCoffee</th>
+                  <th colspan="3">Average</th>
+                </tr>
+                <tr>
+                  <th>TSR ↑</th><th>RWD ↑</th><th>COR ↓</th>
+                  <th>TSR ↑</th><th>RWD ↑</th><th>COR ↓</th>
+                  <th>TSR ↑</th><th>RWD ↑</th><th>COR ↓</th>
+                  <th>TSR ↑</th><th>RWD ↑</th><th>COR ↓</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2">w/o Obs.</td><td>EE</td>
+                  <td>96.8</td><td>.980</td><td>--</td>
+                  <td>83.6</td><td>.937</td><td>--</td>
+                  <td>89.7</td><td>.932</td><td>--</td>
+                  <td>90.0</td><td>.950</td><td>--</td>
+                </tr>
+                <tr>
+                  <td>Joint</td>
+                  <td>94.4</td><td>.965</td><td>--</td>
+                  <td>87.9</td><td>.957</td><td>--</td>
+                  <td>89.7</td><td>.929</td><td>--</td>
+                  <td>90.7</td><td>.950</td><td>--</td>
+                </tr>
+                <tr>
+                  <td rowspan="5">w/ Obs.</td><td>EE</td>
+                  <td>43.4</td><td>.634</td><td>52.6</td>
+                  <td>41.6</td><td>.752</td><td>61.8</td>
+                  <td>22.2</td><td>.456</td><td>58.3</td>
+                  <td>35.7</td><td>.614</td><td>57.6</td>
+                </tr>
+                <tr>
+                  <td>EE w/ Sampling</td>
+                  <td>47.1</td><td>.661</td><td>51.3</td>
+                  <td>43.9</td><td>.767</td><td>53.2</td>
+                  <td>24.1</td><td>.478</td><td>60.0</td>
+                  <td>38.4</td><td>.635</td><td>54.8</td>
+                </tr>
+                <tr>
+                  <td>EE w/ CBF</td>
+                  <td>65.8</td><td>.764</td><td>15.3</td>
+                  <td>56.3</td><td>.797</td><td>29.9</td>
+                  <td>48.9</td><td>.606</td><td>8.6</td>
+                  <td>57.0</td><td>.722</td><td>17.9</td>
+                </tr>
+                <tr>
+                  <td>Joint w/ CG</td>
+                  <td>57.7</td><td>.687</td><td><strong>0.2</strong></td>
+                  <td>10.3</td><td>.403</td><td>52.0</td>
+                  <td>22.4</td><td>.424</td><td>40.6</td>
+                  <td>30.1</td><td>.505</td><td>30.9</td>
+                </tr>
+                <tr class="ours-row">
+                  <td>EmbodiSteer</td>
+                  <td><strong>74.8</strong></td><td><strong>.829</strong></td><td>4.6</td>
+                  <td><strong>60.6</strong></td><td><strong>.833</strong></td><td><strong>27.1</strong></td>
+                  <td><strong>57.2</strong></td><td><strong>.670</strong></td><td><strong>2.8</strong></td>
+                  <td><strong>64.2</strong></td><td><strong>.777</strong></td><td><strong>11.5</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="method">
+        <div class="section-heading">
+          <p class="eyebrow">Method</p>
+          <h2>Lift Cartesian denoising into joint space</h2>
+        </div>
+        <figure class="figure-block">
+          <img src="assets/images/method.png" alt="EmbodiSteer method overview" />
+          <figcaption>
+            EmbodiSteer keeps the Cartesian diffusion policy frozen, queries it
+            through forward kinematics, and applies CBF-inspired whole-body
+            guidance in the target robot's joint space.
+          </figcaption>
+        </figure>
+        <div class="method-grid">
+          <div>
+            <div class="method-title">
+              <div class="method-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m10 20-1.25-2.5L6 18"/><path d="M10 4 8.75 6.5 6 6"/><path d="m14 20 1.25-2.5L18 18"/><path d="m14 4 1.25 2.5L18 6"/><path d="m17 21-3-6h-4"/><path d="m17 3-3 6 1.5 3"/><path d="M2 12h6.5L10 9"/><path d="m20 10-1.5 2 1.5 2"/><path d="M22 12h-6.5L14 15"/><path d="m4 10 1.5 2L4 14"/><path d="m7 21 3-6-1.5-3"/><path d="m7 3 3 6h4"/></svg>
+              </div>
+              <h3>Frozen Cartesian policy</h3>
+            </div>
+            <p>The learned denoiser remains in the embodiment-agnostic end-effector action space.</p>
+          </div>
+          <div>
+            <div class="method-title">
+              <div class="method-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m2 9 3-3 3 3"/><path d="M13 18H7a2 2 0 0 1-2-2V6"/><path d="m22 15-3 3-3-3"/><path d="M11 6h6a2 2 0 0 1 2 2v10"/></svg>
+              </div>
+              <h3>Joint-space sampling</h3>
+            </div>
+            <p>Forward kinematics and damped Jacobian updates lift the reverse-diffusion sample into the target robot's joints.</p>
+          </div>
+          <div>
+            <div class="method-title">
+              <div class="method-icon" aria-hidden="true">
+                <svg class="robot-arm-icon" viewBox="0 0 246 233"><path d="M15 216h82v17H15z"/><path d="M36 178h40v38H36z"/><path d="m56 178 62-94 26 17-62 94z"/><path d="m113 73 35-52 26 17-35 52z"/><path d="m166 32 29 19-18 28-29-19z"/><path d="m177 79 36 24-10 15-36-24z"/><path d="M93 83a31 31 0 1 0 62 0 31 31 0 0 0-62 0Zm18 0a13 13 0 1 1 26 0 13 13 0 0 1-26 0Z"/><path d="M187 49a27 27 0 1 0 54 0 27 27 0 0 0-54 0Zm16 0a11 11 0 1 1 22 0 11 11 0 0 1-22 0Z"/></svg>
+              </div>
+              <h3>Whole-body guidance</h3>
+            </div>
+            <p>CBF-inspired QP guidance steers robot-body motion away from known obstacles while preserving end-effector behavior.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="bibtex">
+        <div class="section-heading">
+          <p class="eyebrow">Citation</p>
+          <h2>BibTeX</h2>
+        </div>
+        <pre class="bibtex"><code>@article{wang2026embodisteer,
+  title   = {EmbodiSteer: Steering Embodiment-Agnostic Visuomotor Policies with Joint-Space Guidance for Zero-Shot Cross-Embodiment Deployment},
+  author  = {Wang, Shihefeng and Lv, Kangchen and Yu, Mingrui and Li, Xiang},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</code></pre>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>EmbodiSteer project page. </p>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
