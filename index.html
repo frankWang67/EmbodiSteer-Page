@@ -31,7 +31,7 @@
           Guidance for Zero-Shot Cross-Embodiment Deployment
         </p>
         <p class="authors">
-          Shihefeng Wang<sup>*</sup>, Kangchen Lv<sup>*</sup>, Mingrui Yu,
+          Shihefeng Wang<sup>*</sup>, Kangchen Lv<sup>*</sup>, Mingrui Yu<sup>&dagger;</sup>,
           Xiang Li<sup>&dagger;</sup>
         </p>
         <p class="affiliations">
@@ -39,7 +39,7 @@
           Beijing Key Laboratory of Embodied Intelligence Systems &nbsp;|&nbsp;
           Institute for Embodied Intelligence and Robotics, Tsinghua University
         </p>
-        <p class="notes"><sup>*</sup>Equal contribution. <sup>&dagger;</sup>Corresponding author.</p>
+        <p class="notes"><sup>*</sup>Equal contribution. <sup>&dagger;</sup>Corresponding authors.</p>
         <div class="actions">
           <a class="button primary" href="assets/paper/embodisteer.pdf">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
@@ -113,52 +113,132 @@
           <p class="eyebrow">Real-World Results</p>
           <h2>Same UMI-trained checkpoint, two robot embodiments</h2>
           <p>
-            Select a task to compare Base Cartesian Policy and EmbodiSteer
-            rollouts on UR5 and Franka Panda. Each task shares one checkpoint
-            across the two robots.
+            Compare Base Cartesian Policy and EmbodiSteer rollouts on UR5 and
+            Franka Panda. Each task shares one checkpoint across the two robots.
           </p>
           <p class="speed-note">All rollouts are shown at 2x speed.</p>
         </div>
 
-        <div class="tabs" role="tablist" aria-label="Real-world task selector">
-          <button class="tab active" data-task="coffee" type="button">Make Iced Coffee</button>
-          <button class="tab" data-task="flower" type="button">Put Flower in Vase</button>
-          <button class="tab" data-task="banana" type="button">Arrange Banana</button>
-        </div>
-        <div class="layout-row">
-          <span class="layout-label">Obstacle layout</span>
-          <div class="layout-tabs" role="tablist" aria-label="Obstacle layout selector"></div>
-        </div>
+        <div class="task-stack">
+          <section class="real-task" data-task="coffee">
+            <div class="task-heading">
+              <h3>Make Iced Coffee</h3>
+              <div class="layout-row">
+                <span class="layout-label">Obstacle layout</span>
+                <div class="layout-tabs" role="tablist" aria-label="Make Iced Coffee obstacle layout selector"></div>
+              </div>
+            </div>
+            <div class="rollout-grid">
+              <article class="video-card">
+                <div class="card-title">
+                  <span>UR5</span>
+                  <strong>Base Cartesian Policy</strong>
+                </div>
+                <video data-robot="ur5" data-method="base" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>UR5</span>
+                  <strong>EmbodiSteer</strong>
+                </div>
+                <video data-robot="ur5" data-method="embodisteer" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>Franka Panda</span>
+                  <strong>Base Cartesian Policy</strong>
+                </div>
+                <video data-robot="franka" data-method="base" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>Franka Panda</span>
+                  <strong>EmbodiSteer</strong>
+                </div>
+                <video data-robot="franka" data-method="embodisteer" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+            </div>
+          </section>
 
-        <div class="rollout-grid">
-          <article class="video-card">
-            <div class="card-title">
-              <span>UR5</span>
-              <strong>Base Cartesian Policy</strong>
+          <section class="real-task" data-task="flower">
+            <div class="task-heading">
+              <h3>Put Flower in Vase</h3>
+              <div class="layout-row">
+                <span class="layout-label">Obstacle layout</span>
+                <div class="layout-tabs" role="tablist" aria-label="Put Flower in Vase obstacle layout selector"></div>
+              </div>
             </div>
-            <video id="ur5-base" controls muted playsinline preload="metadata"></video>
-          </article>
-          <article class="video-card">
-            <div class="card-title">
-              <span>UR5</span>
-              <strong>EmbodiSteer</strong>
+            <div class="rollout-grid">
+              <article class="video-card">
+                <div class="card-title">
+                  <span>UR5</span>
+                  <strong>Base Cartesian Policy</strong>
+                </div>
+                <video data-robot="ur5" data-method="base" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>UR5</span>
+                  <strong>EmbodiSteer</strong>
+                </div>
+                <video data-robot="ur5" data-method="embodisteer" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>Franka Panda</span>
+                  <strong>Base Cartesian Policy</strong>
+                </div>
+                <video data-robot="franka" data-method="base" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>Franka Panda</span>
+                  <strong>EmbodiSteer</strong>
+                </div>
+                <video data-robot="franka" data-method="embodisteer" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
             </div>
-            <video id="ur5-embodisteer" controls muted playsinline preload="metadata"></video>
-          </article>
-          <article class="video-card">
-            <div class="card-title">
-              <span>Franka Panda</span>
-              <strong>Base Cartesian Policy</strong>
+          </section>
+
+          <section class="real-task" data-task="banana">
+            <div class="task-heading">
+              <h3>Arrange Banana</h3>
+              <div class="layout-row">
+                <span class="layout-label">Obstacle layout</span>
+                <div class="layout-tabs" role="tablist" aria-label="Arrange Banana obstacle layout selector"></div>
+              </div>
             </div>
-            <video id="franka-base" controls muted playsinline preload="metadata"></video>
-          </article>
-          <article class="video-card">
-            <div class="card-title">
-              <span>Franka Panda</span>
-              <strong>EmbodiSteer</strong>
+            <div class="rollout-grid">
+              <article class="video-card">
+                <div class="card-title">
+                  <span>UR5</span>
+                  <strong>Base Cartesian Policy</strong>
+                </div>
+                <video data-robot="ur5" data-method="base" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>UR5</span>
+                  <strong>EmbodiSteer</strong>
+                </div>
+                <video data-robot="ur5" data-method="embodisteer" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>Franka Panda</span>
+                  <strong>Base Cartesian Policy</strong>
+                </div>
+                <video data-robot="franka" data-method="base" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
+              <article class="video-card">
+                <div class="card-title">
+                  <span>Franka Panda</span>
+                  <strong>EmbodiSteer</strong>
+                </div>
+                <video data-robot="franka" data-method="embodisteer" controls autoplay muted loop playsinline preload="metadata"></video>
+              </article>
             </div>
-            <video id="franka-embodisteer" controls muted playsinline preload="metadata"></video>
-          </article>
+          </section>
         </div>
       </section>
 

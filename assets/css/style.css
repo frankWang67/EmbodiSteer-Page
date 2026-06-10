@@ -327,6 +327,33 @@ video {
   margin-top: 24px;
 }
 
+.task-stack {
+  display: grid;
+  gap: 28px;
+}
+
+.real-task {
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.real-task:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.task-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.task-heading h3 {
+  margin-top: 3px;
+}
+
 .tabs {
   display: flex;
   flex-wrap: wrap;
@@ -358,7 +385,7 @@ video {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px 14px;
-  margin: -4px 0 20px;
+  margin: 0;
 }
 
 .layout-label {
@@ -603,6 +630,11 @@ h3 {
 
   .section {
     padding: 20px;
+  }
+
+  .task-heading {
+    flex-direction: column;
+    gap: 10px;
   }
 
   .card-title {
