@@ -344,15 +344,15 @@ video {
 
 .task-heading {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
   margin-bottom: 14px;
 }
 
 .task-heading h3 {
   margin-top: 0;
-  font-size: clamp(22px, 3vw, 28px);
+  font-size: clamp(26px, 3.6vw, 34px);
   line-height: 1.12;
 }
 
@@ -386,7 +386,9 @@ video {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px 14px;
+  width: 100%;
+  column-gap: 28px;
+  row-gap: 10px;
   margin: 0;
   padding: 10px;
   border: 1px solid var(--line);
