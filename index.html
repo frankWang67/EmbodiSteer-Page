@@ -111,7 +111,7 @@
       <section class="section" id="real-world">
         <div class="section-heading">
           <p class="eyebrow">Real-World Results</p>
-          <h2>Same UMI-trained checkpoint, two robot embodiments</h2>
+          <h2>Same UMI-trained checkpoint, zero-shot deployment on two robot embodiments</h2>
           <p>
             Compare Base Cartesian Policy and EmbodiSteer rollouts on UR5 and
             Franka Panda. Each task shares one checkpoint across the two robots.
@@ -250,14 +250,10 @@
 
         <figure class="figure-block">
           <img src="assets/images/figure3_simulation_setup.png" alt="Simulation tasks and robot embodiments" />
-          <figcaption>
-            Figure 3. Simulation benchmark covering three manipulation tasks and
-            diverse robot embodiments.
-          </figcaption>
         </figure>
 
         <div class="table-card">
-          <div class="table-title">Table 1. Quantitative results with obstacles</div>
+          <div class="table-title">Quantitative results in simulation across 9 robot embodiments</div>
           <p class="table-note">
             TSR denotes task success rate, and COR denotes collision rate.
           </p>
@@ -342,11 +338,6 @@
         </div>
         <figure class="figure-block">
           <img src="assets/images/method.png" alt="EmbodiSteer method overview" />
-          <figcaption>
-            EmbodiSteer keeps the Cartesian diffusion policy frozen, queries it
-            through forward kinematics, and applies CBF-inspired whole-body
-            guidance in the target robot's joint space.
-          </figcaption>
         </figure>
         <div class="method-grid">
           <div>
