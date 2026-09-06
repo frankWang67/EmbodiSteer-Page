@@ -93,6 +93,12 @@ main {
   text-transform: uppercase;
 }
 
+.venue {
+  font-size: 25px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 h1 {
   margin: 0;
   font-size: clamp(46px, 8vw, 86px);
