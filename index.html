@@ -43,7 +43,7 @@
         <p class="notes"><sup>*</sup>Equal contribution. <sup>&dagger;</sup>Corresponding authors.</p>
         <p class="venue">CoRL 2026 Spotlight✨</p>
         <div class="actions">
-          <a class="button primary" href="assets/paper/embodisteer.pdf">
+          <a class="button primary" href="assets/paper/embodisteer.pdf" aria-label="Read the paper">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
             Paper
           </a>
@@ -85,26 +85,27 @@
           <p class="eyebrow">Abstract</p>
         </div>
         <p class="abstract-text">
-          Scalable robot imitation learning relies on large-scale heterogeneous data from diverse robots or body-free data, making Cartesian end-effector actions a key interface for embodiment-agnostic policy learning. However, end-effector-only abstraction leaves Cartesian policies unaware of the deployed robot body, making them brittle under robot-specific constraints such as whole-body collision avoidance. To overcome this limitation, we present <strong>EmbodiSteer</strong>, a training-free framework that steers embodiment-agnostic visuomotor policies toward zero-shot, embodiment-aware deployment. EmbodiSteer keeps policy learning in Cartesian space while efficiently lifting inference-time diffusion sampling into the target robot's joint space via forward kinematics and Jacobian-based updates. With whole-body collision-aware guidance over joint trajectories after each denoising step, the arm can be steered away from collisions while preserving learned end-effector behavior. Compared with Cartesian-only execution, EmbodiSteer reduces collision rate by 46.1% and improves task success rate by 28.5% across 9 simulated robots, and further achieves 90.0% collision rate reduction and 36.7% success rate increase on two physical robots in highly constrained scenarios.
+          Scalable robot imitation learning relies on large-scale heterogeneous data from diverse robots or body-free data, making Cartesian end-effector actions a key interface for embodiment-agnostic policy learning. However, end-effector-only abstraction leaves Cartesian policies unaware of the deployed robot body, making them brittle under robot-specific constraints such as whole-body collision avoidance. To overcome this limitation, we present <strong>EmbodiSteer</strong>, a training-free framework that steers embodiment-agnostic visuomotor policies toward zero-shot, embodiment-aware deployment. EmbodiSteer keeps policy learning in Cartesian space while efficiently lifting inference-time diffusion sampling into the target robot's joint space via forward kinematics and Jacobian-based updates. With whole-body collision-aware guidance over joint trajectories after each denoising step, the arm can be steered away from collisions while preserving learned end-effector behavior. Across 9 simulated robots, EmbodiSteer reduces collision rate by 46.1 percentage points and increases task success by 28.5 percentage points over Cartesian-only execution; on two physical robots in highly constrained scenarios, the respective improvements are 90.0 and 36.7 percentage points.
         </p>
         <div class="metric-row">
           <div class="metric">
-            <span class="metric-value">+28.5%</span>
+            <span class="metric-value">+28.5 <span class="metric-unit">pp</span></span>
             <span class="metric-label">simulation success rate</span>
           </div>
           <div class="metric">
-            <span class="metric-value">-46.1%</span>
+            <span class="metric-value">-46.1 <span class="metric-unit">pp</span></span>
             <span class="metric-label">simulation collision rate</span>
           </div>
           <div class="metric">
-            <span class="metric-value">+36.7%</span>
+            <span class="metric-value">+36.7 <span class="metric-unit">pp</span></span>
             <span class="metric-label">real-world success rate</span>
           </div>
           <div class="metric">
-            <span class="metric-value">-90.0%</span>
+            <span class="metric-value">-90.0 <span class="metric-unit">pp</span></span>
             <span class="metric-label">real-world collision rate</span>
           </div>
         </div>
+        <p class="metric-note">All improvements are absolute changes in percentage points (pp), relative to Cartesian-only execution.</p>
         <figure class="figure-block abstract-teaser">
           <img src="assets/images/teaser.png" alt="EmbodiSteer teaser showing cross-embodiment deployment with obstacle-aware guidance" />
         </figure>
@@ -116,7 +117,7 @@
           <h2>Same UMI-trained checkpoint, zero-shot deployment on two robot embodiments</h2>
           <p>
             Compare Base Cartesian Policy and EmbodiSteer rollouts on UR5 and
-            Franka Panda. Each task shares one checkpoint across the two robots.
+            Franka Panda. Each task shares one checkpoint, trained on 200 obstacle-free UMI demonstrations, across the two robots. Obstacles are introduced only at deployment.
           </p>
           <p class="speed-note">All rollouts are shown at 2x speed.</p>
         </div>
@@ -242,6 +243,33 @@
             </div>
           </section>
         </div>
+
+        <div class="table-card">
+          <div class="table-title" id="real-world-results-title">Real-world results by robot and task</div>
+          <p class="table-note">TSR and COR are success and collision counts over 10 trials per robot-task pair. Task success and obstacle contact are evaluated independently. The total aggregates 60 trials, as in Table 12 of the paper.</p>
+          <div class="table-scroll">
+            <table class="real-results-table" aria-labelledby="real-world-results-title">
+              <thead>
+                <tr>
+                  <th rowspan="2" scope="col">Robot</th><th rowspan="2" scope="col">Task</th>
+                  <th scope="colgroup">No Obstacles, Base Policy</th>
+                  <th colspan="2" scope="colgroup">Obstacles, Base Policy</th>
+                  <th colspan="2" scope="colgroup">Obstacles, EmbodiSteer</th>
+                </tr>
+                <tr><th scope="col">TSR ↑</th><th scope="col">TSR ↑</th><th scope="col">COR ↓</th><th scope="col">TSR ↑</th><th scope="col">COR ↓</th></tr>
+              </thead>
+              <tbody>
+                <tr><th rowspan="3" scope="rowgroup">UR5</th><td>Make Iced Coffee</td><td>9/10</td><td>4/10</td><td>10/10</td><td><strong>8/10</strong></td><td><strong>1/10</strong></td></tr>
+                <tr><td>Put Flower in Vase</td><td>7/10</td><td>4/10</td><td>9/10</td><td><strong>6/10</strong></td><td><strong>1/10</strong></td></tr>
+                <tr><td>Arrange Banana</td><td>8/10</td><td>4/10</td><td>9/10</td><td><strong>9/10</strong></td><td><strong>0/10</strong></td></tr>
+                <tr><th rowspan="3" scope="rowgroup">Franka Panda</th><td>Make Iced Coffee</td><td>9/10</td><td>6/10</td><td>10/10</td><td><strong>8/10</strong></td><td><strong>1/10</strong></td></tr>
+                <tr><td>Put Flower in Vase</td><td>6/10</td><td>1/10</td><td>10/10</td><td><strong>6/10</strong></td><td><strong>0/10</strong></td></tr>
+                <tr><td>Arrange Banana</td><td>10/10</td><td>6/10</td><td>10/10</td><td><strong>10/10</strong></td><td><strong>1/10</strong></td></tr>
+                <tr class="ours-row"><th scope="row">Total</th><td>All tasks</td><td>49/60</td><td>25/60</td><td>58/60</td><td><strong>47/60</strong></td><td><strong>4/60</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="simulation">
@@ -255,12 +283,12 @@
         </figure>
 
         <div class="table-card">
-          <div class="table-title">Quantitative results in simulation across 9 robot embodiments</div>
+          <div class="table-title" id="simulation-main-title">Quantitative results in simulation across 9 robot embodiments</div>
           <p class="table-note">
-            TSR denotes task success rate, and COR denotes collision rate.
+            TSR is task success rate (%), RWD is maximum reward per episode, and COR is collision occurrence rate (%). Values are averaged over nine robot embodiments, as in Table 1 of the paper.
           </p>
           <div class="table-scroll">
-            <table>
+            <table aria-labelledby="simulation-main-title">
               <thead>
                 <tr>
                   <th rowspan="2">Obstacles</th>
@@ -316,9 +344,9 @@
                 <tr>
                   <td>Joint w/ CG</td>
                   <td>57.7</td><td>.687</td><td><strong>0.2</strong></td>
-                  <td>10.3</td><td>.403</td><td>52.0</td>
+                  <td>10.3</td><td>.403</td><td>59.6</td>
                   <td>22.4</td><td>.424</td><td>40.6</td>
-                  <td>30.1</td><td>.505</td><td>30.9</td>
+                  <td>30.1</td><td>.505</td><td>33.5</td>
                 </tr>
                 <tr class="ours-row">
                   <td>EmbodiSteer</td>
@@ -330,6 +358,39 @@
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-title" id="repeated-results-title">Simulation results across three evaluation seeds</div>
+          <p class="table-note">Mean ± standard deviation across three seeds, averaged over the three tasks and nine robot embodiments under obstacles, as in Table 2 of the paper.</p>
+          <div class="table-scroll">
+            <table class="compact-table" aria-labelledby="repeated-results-title">
+              <thead><tr><th scope="col">Method</th><th scope="col">TSR (%) ↑</th><th scope="col">RWD ↑</th><th scope="col">COR (%) ↓</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">EE</th><td>36.0 ± 0.2</td><td>.614 ± .004</td><td>56.8 ± 0.9</td></tr>
+                <tr><th scope="row">EE w/ Sampling</th><td>37.7 ± 0.5</td><td>.621 ± .012</td><td>53.1 ± 1.3</td></tr>
+                <tr><th scope="row">EE w/ CBF</th><td>57.2 ± 0.6</td><td>.726 ± .005</td><td>18.3 ± 0.3</td></tr>
+                <tr><th scope="row">Joint w/ CG</th><td>30.3 ± 0.5</td><td>.503 ± .003</td><td>33.5 ± 0.6</td></tr>
+                <tr class="ours-row"><th scope="row">EmbodiSteer</th><td><strong>63.3 ± 1.4</strong></td><td><strong>.771 ± .011</strong></td><td><strong>11.7 ± 0.8</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="result-detail">
+          <h3>Demonstration coverage</h3>
+          <p>Collision guidance perturbs policy-proposed motion, making the coverage of training demonstrations relevant to task performance. On MakeCoffee, we vary the number of demonstrations (20, 50, 100, or 200) and, separately, trajectory diversity. Diversity scales the waypoint randomization used during motion-planning data generation to 10%, 33%, 67%, or 100% of the original setting, with 200 demonstrations at each level. Increasing either quantity or diversity improves task success under guidance.</p>
+          <figure class="figure-block">
+            <a href="assets/images/demo_coverage.png" aria-label="View the demonstration coverage plot at full resolution">
+              <img src="assets/images/demo_coverage.png" alt="MakeCoffee success rates for EE, EE w/ CBF, Joint w/ CG, and EmbodiSteer as demonstration count and waypoint randomization increase" loading="lazy" />
+            </a>
+            <figcaption>Demonstration quantity (left) and trajectory diversity (right), from Figure 6 of the paper. Select the plot to view it at full resolution.</figcaption>
+          </figure>
+        </div>
+
+        <div class="result-detail">
+          <h3>Alternative constraint integration</h3>
+          <p>We also implement a JM2D-style baseline that combines the same frozen Cartesian policy with whole-body constraints through repeated candidate denoising. On PlaceToast with Panda, under the same RTX 4090, batch-1, CUDA-synchronized conditions, this adaptation takes 8.65 s per chunk with 16 proposals and 16 denoising steps, versus 0.254 s for EmbodiSteer. Reducing JM2D to four steps still takes 3.27 s per chunk. This cost limits its practicality for closed-loop replanning in our setting, so the paper reports computational feasibility rather than a full task-performance comparison.</p>
         </div>
       </section>
 
@@ -377,7 +438,7 @@
           <p class="eyebrow">Citation</p>
           <h2>BibTeX</h2>
         </div>
-<pre class="bibtex"><code>@misc{wang2026embodisteer
+<pre class="bibtex"><code>@misc{wang2026embodisteer,
       title={EmbodiSteer: Steering Embodiment-Agnostic Visuomotor Policies with Joint-Space Guidance for Zero-Shot Cross-Embodiment Deployment}, 
       author={Wang, Shihefeng and Lv, Kangchen and Yu, Mingrui and Li, Xiang},
       year={2026},

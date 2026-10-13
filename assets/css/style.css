@@ -329,7 +329,7 @@ video {
   font-weight: 700;
 }
 
-.abstract-teaser {
+.figure-block.abstract-teaser {
   margin-top: 24px;
 }
 
@@ -665,4 +665,36 @@ h3 {
     align-items: flex-start;
     flex-direction: column;
   }
+}
+
+.metric-unit {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.metric-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.compact-table {
+  min-width: 520px;
+  font-size: 14px;
+}
+
+.real-results-table {
+  min-width: 900px;
+}
+
+.result-detail {
+  margin-top: 28px;
+}
+
+.result-detail h3 {
+  font-size: 22px;
+}
+
+.result-detail p {
+  color: var(--muted);
 }
